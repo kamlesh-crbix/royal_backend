@@ -11,13 +11,15 @@ app.use(express.json());
 app.post('/api/inquiry', async (req, res) => {
   const { fullName, email, phone, productName, quantity, message } = req.body;
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+ const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true, // Use True for port 465
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
   const mailOptionsAdmin = {
     from: process.env.EMAIL_USER,
